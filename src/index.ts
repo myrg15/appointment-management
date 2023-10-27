@@ -2,7 +2,7 @@ import express from "express";
 import { AppDataSource } from "./db";
 
 
-const app = express()
+const app = express();
 
 app.use(express.json())
 
@@ -20,3 +20,4 @@ AppDataSource.initialize()
   .catch(error => {
     console.log(error)
   })
+  
