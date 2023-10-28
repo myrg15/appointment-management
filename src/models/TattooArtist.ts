@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable } from "typeorm"
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable, OneToOne } from "typeorm"
 import {Appointments} from "./Appointments"
+import { Portfolio } from "./Portfolio";
 
 
 @Entity("tattooArtist")
@@ -33,6 +34,12 @@ export class TattooArtist extends BaseEntity {
   appointments!: Appointments[];
 
   tattooArtistAppointments!: Appointments[];
+
+  @OneToOne(() => Portfolio, (portfolio) => portfolio.tattooArtist)
+  portfolio!: Portfolio[];
+
+  tattooArtistPortfolio!: Portfolio[];
+
 
 }
 

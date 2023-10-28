@@ -39,7 +39,7 @@ export class CreateTablePortfolio1698447058763 implements MigrationInterface {
                 foreignKeys: [
                     {
                         columnNames: ["tattoo_id"],
-                        referencedTableName: "tattoo-artist",
+                        referencedTableName: "tattooArtist",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE",
                     }
