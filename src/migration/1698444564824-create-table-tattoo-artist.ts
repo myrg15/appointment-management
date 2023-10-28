@@ -5,7 +5,7 @@ export class CreateTableTattooArtist1698444564824 implements MigrationInterface 
     public async up(queryRunner: QueryRunner): Promise<void> {
             await queryRunner.createTable(
                 new Table({
-                    name: "tatoo-artist",
+                    name: "tatooArtist",
                     columns: [
                         {
                             name: "id",
@@ -59,7 +59,7 @@ export class CreateTableTattooArtist1698444564824 implements MigrationInterface 
         }
     
         public async down(queryRunner: QueryRunner): Promise<void> {
-            await queryRunner.dropTable("tatoo-artist");
+            await queryRunner.dropTable("tatooArtist");
         }
     }   
         
