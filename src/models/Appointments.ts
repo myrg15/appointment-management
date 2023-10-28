@@ -21,14 +21,23 @@ export class Appointments extends BaseEntity {
   @Column()
   updated_at!: Date
 
- @ManyToOne(() => Customers, (customers) => customers.appointments)
-  customers!: Customers[];
-
-  customersAppointments!: Appointments[];
-
-  @ManyToOne(() => TattooArtist, (tattooArtist) => tattooArtist.appointments)
-  tattooArtist!: TattooArtist[];
-
-  tattooArtistAppointments!: Appointments[];
-
+  @ManyToOne(() => Customers)
+  @JoinTable({
+     name: "customer_appointments",
+     joinColumn: {
+        name: "appointments_id",
+        referencedColumnName: "id",
+     }
+    })
+    customersAppointments!: Appointments[];
+ @ManyToOne(() => TattooArtist)
+ @JoinTable({
+  name: "tatooArtist_appointments",
+  joinColumn:{
+    name: "appointments_id",
+    referencedColumnName:"id"
+  }
+ })
+ tattooArtistAppointments!: Appointments[];
+ 
 }

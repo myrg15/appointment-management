@@ -38,14 +38,14 @@ export class CreateTableAppointments1698444994460 implements MigrationInterface 
                 ],
                 foreignKeys: [
                     {
-                        columnNames: ["customers_id"],
+                        columnNames: ["id"],
                         referencedTableName: "customers",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE",
                     },
                     {
-                        columnNames: ["tattoo_id"],
-                        referencedTableName: "tattoo-artist",
+                        columnNames: ["id"],
+                        referencedTableName: "tattooArtist",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE",
                     }

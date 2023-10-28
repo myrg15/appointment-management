@@ -3,7 +3,7 @@ import {Appointments} from "./Appointments"
 import { Portfolio } from "./Portfolio";
 
 
-@Entity("tattooArtist")
+@Entity({name: "tatooArtist"})
 export class TattooArtist extends BaseEntity {
 
   @PrimaryGeneratedColumn()

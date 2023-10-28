@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGe
 import {Appointments} from "./Appointments"
 
 
-@Entity("customers")
+@Entity({name: "customers"})
 export class Customers extends BaseEntity {
 
   @PrimaryGeneratedColumn()
