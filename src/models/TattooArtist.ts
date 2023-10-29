@@ -7,7 +7,7 @@ import { Portfolio } from "./Portfolio";
 export class TattooArtist extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  id!: number
+  tattooArtist_id!: number
 
   @Column()
   username!: string
@@ -30,12 +30,12 @@ export class TattooArtist extends BaseEntity {
   @Column()
   updated_at!: Date
 
- @OneToMany(() => Appointments, (appointments) => appointments.tattooArtist)
+ @OneToMany(() => Appointments, (appointments) => appointments.tattooArtistAppointments)
   appointments!: Appointments[];
 
   tattooArtistAppointments!: Appointments[];
 
-  @OneToOne(() => Portfolio, (portfolio) => portfolio.tattooArtist)
+  @OneToOne(() => Portfolio, (portfolio) => portfolio.tattooArtistPortfolio)
   portfolio!: Portfolio[];
 
   tattooArtistPortfolio!: Portfolio[];

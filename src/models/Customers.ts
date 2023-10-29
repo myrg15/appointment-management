@@ -1,12 +1,11 @@
 import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable } from "typeorm"
 import {Appointments} from "./Appointments"
 
-
 @Entity({name: "customers"})
 export class Customers extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  id!: number
+  customer_id!: number
 
   @Column()
   username!: string
@@ -29,7 +28,7 @@ export class Customers extends BaseEntity {
   @Column()
   updated_at!: Date
 
- @OneToMany(() => Appointments, (appointments) => appointments.customers)
+ @OneToMany(() => Appointments, (appointments) => appointments.customersAppointments)
   appointments!: Appointments[];
 
   customersAppointments!: Appointments[];
