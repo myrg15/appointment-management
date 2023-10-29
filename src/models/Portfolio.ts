@@ -1,12 +1,11 @@
 import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable } from "typeorm"
 import {TattooArtist} from "./TattooArtist"
 
-
 @Entity("portfolio")
 export class Portfolio extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  id!: number
+  portfolio_id!: number
 
   @Column()
   name!: string

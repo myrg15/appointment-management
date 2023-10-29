@@ -2,7 +2,6 @@ import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGe
 import {Appointments} from "./Appointments"
 import { Portfolio } from "./Portfolio";
 
-
 @Entity({name: "tatooArtist"})
 export class TattooArtist extends BaseEntity {
 
@@ -30,21 +29,9 @@ export class TattooArtist extends BaseEntity {
   @Column()
   updated_at!: Date
 
- @OneToMany(() => Appointments, (appointments) => appointments.tattooArtistAppointments)
+ @OneToMany(() => Appointments, appointments => appointments.tattooArtistAppointments)
   appointments!: Appointments[];
 
-  tattooArtistAppointments!: Appointments[];
-
-  @OneToOne(() => Portfolio, (portfolio) => portfolio.tattooArtistPortfolio)
+  @OneToOne(() => Portfolio, portfolio => portfolio.tattooArtistPortfolio)
   portfolio!: Portfolio[];
-
-  tattooArtistPortfolio!: Portfolio[];
-
-
 }
-
-
-
-
-
-

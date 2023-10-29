@@ -6,7 +6,10 @@ import { TattooArtist } from "./TattooArtist"
 export class Appointments extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  id!: number
+  appointments_id!: number
+  
+  @Column()
+  date!: Date
 
   @Column()
   tattoo!: boolean
@@ -20,23 +23,10 @@ export class Appointments extends BaseEntity {
   @Column()
   updated_at!: Date
 
-  @ManyToOne(() => Customers)
-  @JoinTable({
-    name: "customer_appointments",
-    joinColumn: {
-      name: "appointments_id",
-      referencedColumnName: "id",
-    }
-  })
-  customersAppointments!: Appointments[];
-  @ManyToOne(() => TattooArtist)
-  @JoinTable({
-    name: "tatooArtist_appointments",
-    joinColumn: {
-      name: "appointments_id",
-      referencedColumnName: "id"
-    }
-  })
-  tattooArtistAppointments!: Appointments[];
+  @ManyToOne(() => Customers, customers => customers.appointments)
+  customers!: Customers [];
 
-}
+  @ManyToOne(() => TattooArtist, tattooArtist => tattooArtist.appointments)
+  tattooArtist!: TattooArtist [];
+  
+  }
