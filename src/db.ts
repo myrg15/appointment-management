@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm"
-import { Customers1698614954445 } from "./migration/1698614954445-customers";
+
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     password: "123456789",
     database: "appointmentmanagement",
     entities: [],
-    migrations: [Customers1698614954445 
+    migrations: [ 
 
     ],
     synchronize: false,
