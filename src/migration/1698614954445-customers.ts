@@ -1,28 +1,45 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class CreateAppointmentsTable1698603037296 implements MigrationInterface {
+export class Customers1698614954445 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "appointments",
+                name: "customers",
                 columns: [
                     {
-                        name: "id",
+                        name: "customer_id",
                         type: "int",
                         isPrimary: true,
                         isGenerated: true,
                         generationStrategy: "increment",
                     },
                     {
-                        name: "tatoo",
+                        name: "username",
+                        type: "varchar",
+                        length: "50"
+                    },
+                    {
+                        name: "email",
+                        type: "varchar",
+                        length: "100",
+                        isUnique: true
+                    },
+                    {
+                        name: "password",
+                        type: "varchar",
+                        length: "200"
+                    },
+                    {
+                        name: "is_active",
                         type: "boolean",
                         default: true
                     },
                     {
-                        name: "piercing",
-                        type: "boolean",
-                        default: true
+                        name: "role",
+                        type: "enum",
+                        enum: ["user", "admin", "super_admin"],
+                        default: '"user"'
                     },
                     {
                         name: "created_at",
@@ -36,27 +53,12 @@ export class CreateAppointmentsTable1698603037296 implements MigrationInterface 
                         onUpdate: "CURRENT_TIMESTAMP"                 
                     },
                 ],
-                foreignKeys: [
-                    {
-                        columnNames: ["customer_id"],
-                        referencedTableName: "customers",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    },
-                    {
-                        columnNames: ["tattooArtist_id"],
-                        referencedTableName: "tattooArtist",
-                        referencedColumnNames: ["id"],
-                        onDelete: "CASCADE",
-                    }
-
-                ]
             }),
             true
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("appointments");
+        await queryRunner.dropTable("customers");
     }
 }   
