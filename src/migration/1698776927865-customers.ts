@@ -36,7 +36,6 @@ export class Customers1698776927865 implements MigrationInterface {
                         type: "varchar",
                         length:"20"
                     },
-
                     {
                         name: "is_active",
                         type: "boolean",
@@ -59,9 +58,12 @@ export class Customers1698776927865 implements MigrationInterface {
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"                 
                     },
+                    {
+                        name: "id",
+                        type: "int",
+                    },
 		           
-                    ],
-		            
+                    ],  
             }),
             true
         );
