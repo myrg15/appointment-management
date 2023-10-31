@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { Customers1698688974386 } from "./migration/1698688974386-customers";
 import { TattooArtist1698701600547 } from "./migration/1698701600547-tattooArtist";
 import { Portfolio1698709713162 } from "./migration/1698709713162-portfolio";
+import { Appointments1698710623196 } from "./migration/1698710623196-appointments";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
     database: "appointmentmanagement",
     entities: [],
     migrations: [Customers1698688974386, TattooArtist1698701600547,
-      Portfolio1698709713162
+      Portfolio1698709713162, Appointments1698710623196
     
     ],
     synchronize: false,
