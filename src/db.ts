@@ -1,9 +1,8 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm"
-import { Customers1698688974386 } from "./migration/1698688974386-customers";
-import { TattooArtist1698701600547 } from "./migration/1698701600547-tattooArtist";
-import { Portfolio1698709713162 } from "./migration/1698709713162-portfolio";
-import { Appointments1698710623196 } from "./migration/1698710623196-appointments";
+import { Customers1698768427834 } from "./migration/1698768427834-customers";
+
+
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -11,10 +10,9 @@ export const AppDataSource = new DataSource({
     port: 3306,
     username: "root",
     password: "123456789",
-    database: "appointmentmanagement",
+    database: "tattoo",
     entities: [],
-    migrations: [Customers1698688974386, TattooArtist1698701600547,
-      Portfolio1698709713162, Appointments1698710623196
+    migrations: [Customers1698768427834
     
     ],
     synchronize: false,
