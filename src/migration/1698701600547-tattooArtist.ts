@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class TattooArtist1698690788118 implements MigrationInterface {
+export class TattooArtist1698701600547 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "tatooArtist",
+                name: "tattooartist",
                 columns: [
                     {
                         name: "tattooArtist_id",
@@ -30,7 +30,6 @@ export class TattooArtist1698690788118 implements MigrationInterface {
                     type: "varchar",
                     length:"20"
                     },
-
                     {
                         name: "password",
                         type: "varchar",
@@ -65,6 +64,6 @@ export class TattooArtist1698690788118 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("tatooArtist");
+        await queryRunner.dropTable("tattooartist");
     }
 }   
