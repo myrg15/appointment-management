@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner, Table } from "typeorm"
 export class Customers1698776927865 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-    
+
         await queryRunner.createTable(
             new Table({
                 name: "customers",
@@ -31,10 +31,10 @@ export class Customers1698776927865 implements MigrationInterface {
                         type: "varchar",
                         length: "200"
                     },
-		            {
+                    {
                         name: "phone_number",
                         type: "varchar",
-                        length:"20"
+                        length: "20"
                     },
                     {
                         name: "is_active",
@@ -50,20 +50,20 @@ export class Customers1698776927865 implements MigrationInterface {
                     {
                         name: "created_at",
                         type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",                        
+                        default: "CURRENT_TIMESTAMP",
                     },
                     {
                         name: "updated_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",
-                        onUpdate: "CURRENT_TIMESTAMP"                 
+                        onUpdate: "CURRENT_TIMESTAMP"
                     },
                     {
                         name: "id",
                         type: "int",
                     },
-		           
-                    ],  
+
+                ],
             }),
             true
         );
@@ -72,5 +72,5 @@ export class Customers1698776927865 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable("customers");
     }
-}   
+}
 

@@ -38,10 +38,10 @@ export class Tattooartist extends BaseEntity {
     @Column()
     desingallery_id!: number
 
-   @OneToMany(() => Appointments, (appointments) => appointments.tattooartist)
-   appointments!: Appointments[];
+    @OneToMany(() => Appointments, (appointments) => appointments.tattooartist)
+    appointments!: Appointments[];
 
-   @OneToMany(() => Desingallery, (desingallery) => desingallery.tattooartist)
-   desingallery!: Desingallery[];
+    @OneToMany(() => Desingallery, (desingallery) => desingallery.tattooartist)
+    desingallery!: Desingallery[];
 
 }

@@ -33,11 +33,11 @@ export class Appointments extends BaseEntity {
     tattooartist_id!: number
 
     @ManyToOne(() => Customers, (customers) => customers.appointments)
-    @JoinColumn({name: "customers_id"})
+    @JoinColumn({ name: "customers_id" })
     customers!: Customers;
 
     @ManyToOne(() => Tattooartist, (tattooartist) => tattooartist.appointments_id)
-    @JoinColumn({name: "tattooartist_id"})
+    @JoinColumn({ name: "tattooartist_id" })
     tattooartist!: Tattooartist;
-    
+
 }

@@ -26,9 +26,9 @@ export class Tattooartist1698777364709 implements MigrationInterface {
                         isUnique: true
                     },
                     {
-                    name: "phone_number",
-                    type: "varchar",
-                    length:"20"
+                        name: "phone_number",
+                        type: "varchar",
+                        length: "20"
                     },
                     {
                         name: "password",
@@ -49,13 +49,13 @@ export class Tattooartist1698777364709 implements MigrationInterface {
                     {
                         name: "created_at",
                         type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",                        
+                        default: "CURRENT_TIMESTAMP",
                     },
                     {
                         name: "updated_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",
-                        onUpdate: "CURRENT_TIMESTAMP"                 
+                        onUpdate: "CURRENT_TIMESTAMP"
                     },
                     {
                         name: "appointments_id",
