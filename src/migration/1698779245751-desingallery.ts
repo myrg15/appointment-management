@@ -45,6 +45,10 @@ export class Desingallery1698779245751 implements MigrationInterface {
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"
                     },
+                    {
+                        name: "tattooartist_id",
+                        type: "int",
+                    },
 
                 ],
             }),
