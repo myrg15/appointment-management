@@ -57,6 +57,14 @@ export class Tattooartist1698777364709 implements MigrationInterface {
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"                 
                     },
+                    {
+                        name: "appointments_id",
+                        type: "int",
+                    },
+                    {
+                        name: "desingallery_id",
+                        type: "int",
+                    },
                 ],
             }),
             true

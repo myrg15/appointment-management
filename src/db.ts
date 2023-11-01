@@ -5,7 +5,8 @@ import { Tattooartist1698777364709 } from "./migration/1698777364709-tattooartis
 import { Desingallery1698779245751 } from "./migration/1698779245751-desingallery";
 import { Appointments1698779878607 } from "./migration/1698779878607-appointments";
 import { ForeignKeycustomers1698792552492 } from "./migration/1698792552492-foreignKeycustomers";
-
+import { ForeignKeytattooartist1698797120672 } from "./migration/1698797120672-foreignKeytattooartist";
+import { ForeignKeytattooartdesing1698797745630 } from "./migration/1698797745630-foreignKeytattooartdesing";
 
 
 export const AppDataSource = new DataSource({
@@ -18,7 +19,8 @@ export const AppDataSource = new DataSource({
     entities: [],
     migrations: [Customers1698776927865, Tattooartist1698777364709,
     Desingallery1698779245751, Appointments1698779878607, 
-    ForeignKeycustomers1698792552492 
+    ForeignKeycustomers1698792552492, ForeignKeytattooartist1698797120672,
+    ForeignKeytattooartdesing1698797745630
     
     ],
     synchronize: false,
