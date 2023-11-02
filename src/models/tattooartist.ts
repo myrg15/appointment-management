@@ -1,12 +1,12 @@
 import { BaseEntity, Entity, Column, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable, OneToOne } from "typeorm"
-import { Appointments } from "./appointments"
-import { Desingallery } from "./desingallery";
+/*import { Appointments } from "./appointments"
+import { Desingallery } from "./desingallery";*/
 
 @Entity("tatooartist")
 export class Tattooartist extends BaseEntity {
 
     @PrimaryGeneratedColumn()
-    tattooartist_id!: number
+    id!: number
 
     @Column()
     username!: string
@@ -32,16 +32,16 @@ export class Tattooartist extends BaseEntity {
     @Column()
     updated_at!: Date
 
-    @Column()
+   /* @Column()
     appointments_id!: number
 
     @Column()
-    desingallery_id!: number
+    desingallery_id!: number*/
 
-    @OneToMany(() => Appointments, (appointments) => appointments.tattooartist)
-    appointments!: Appointments[];
+    //@OneToMany(() => Appointments, (appointments) => appointments.tattooartist)
+    //appointments!: Appointments[];
 
-    @OneToMany(() => Desingallery, (desingallery) => desingallery.tattooartist)
-    desingallery!: Desingallery[];
+    //@OneToMany(() => Desingallery, (desingallery) => desingallery.tattooartist)
+    //desingallery!: Desingallery[];
 
 }

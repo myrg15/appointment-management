@@ -1,10 +1,10 @@
 import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable, JoinColumn } from "typeorm"
-import { Tattooartist } from "./tattooartist"
+//import { Tattooartist } from "./tattooartist"
 
 @Entity("desingallery")
 export class Desingallery extends BaseEntity {
     @PrimaryGeneratedColumn()
-    desingallery_id!: number
+    id!: number
 
     @Column()
     name!: string
@@ -24,12 +24,12 @@ export class Desingallery extends BaseEntity {
     @Column()
     updated_at!: Date
 
-    @Column()
+    /*@Column()
     tattooartist_id!: number
 
     @ManyToOne(() => Tattooartist, (tattooartist) => tattooartist.desingallery)
     @JoinColumn({ name: "tattooartist_id" })
-    tattooartist!: Tattooartist;
+    tattooartist!: Tattooartist;*/
 }
 
 
