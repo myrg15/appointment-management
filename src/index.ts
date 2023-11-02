@@ -1,4 +1,6 @@
 import express from "express";
+import 'dotenv/config'
+//import {  } from "";
 import { AppDataSource } from "./db";
 
 
