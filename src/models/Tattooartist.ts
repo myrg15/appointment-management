@@ -1,22 +1,23 @@
-import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable} from "typeorm"
+import {  BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable, OneToOne } from "typeorm"
 import { Appointment } from "./Appointment";
+import { Desingallery } from "./Desingallery";
 
-@Entity("customers")
-export class Customers extends BaseEntity {
+@Entity("tattooartist")
+export class Tattooartist extends BaseEntity{
     @PrimaryGeneratedColumn()
-    customers_id!: number
+    id!: number
   
     @Column()
     username!: string
   
     @Column()
     email!: string
-  
-    @Column()
-    password!: string
-  
+    
     @Column()
     phone_number!: string
+    
+    @Column()
+    password!: string
   
     @Column()
     is_active!: boolean
@@ -32,6 +33,7 @@ export class Customers extends BaseEntity {
 
     @Column()
     appointments!: Appointment
-  
-   }
 
+    @Column()
+    desingallery!: Desingallery
+}

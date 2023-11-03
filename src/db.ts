@@ -1,14 +1,13 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm"
+import "dotenv/config"
 import { Customers1699009318031 } from "./migration/1699009318031-Customers";
 import { Tattooartist1699010133323 } from "./migration/1699010133323-Tattooartist";
 import { Appointments1699010484103 } from "./migration/1699010484103-Appointments";
 import { Desingallery1699019357889 } from "./migration/1699019357889-Desingallery";
 import { Customers } from "./models/Customers";
-//import { Customers } from "./models/customers";
-//import { Tattooartist } from "./models/tattooartist";
-/*import { Desingallery } from "./models/desingallery";
-import { Appointments } from "./models/appointments";*/
+import { Tattooartist } from "./models/Tattooartist";
+
 
 
 export const AppDataSource = new DataSource({
@@ -18,7 +17,7 @@ export const AppDataSource = new DataSource({
   username: "root",
   password: "123456789",
   database: "tattoo",
-  entities: [Customers],
+  entities: [Customers, Tattooartist],
   migrations: [Customers1699009318031, Tattooartist1699010133323, 
     Appointments1699010484103, Desingallery1699019357889  
     ],
