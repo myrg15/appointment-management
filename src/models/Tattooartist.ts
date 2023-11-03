@@ -38,7 +38,7 @@ export class Tattooartist extends BaseEntity{
     @Column()
     desingallery_id!: number
 
-    // +1 829 923 6045
+   
     /* Un artista puede tener muchas citas */
     @OneToMany(() => Appointment, (appointment) => appointment.tattooartist)
     appointments!: Appointment[];

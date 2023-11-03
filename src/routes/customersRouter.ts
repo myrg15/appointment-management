@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { login, profile, register, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists } from "../controllers/customersController";
+import { test, login, profile, register, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists } from "../controllers/customersController";
 import { auth } from "../middlewares/auth";
 import { isSuperAdmin } from "../middlewares/isSuperAdmin";
 
 const router = Router()
 
+router.get('/test', test)
 router.post('/register', register)
 router.post('/login', login)
 router.post('/update', update)

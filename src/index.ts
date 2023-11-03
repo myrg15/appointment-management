@@ -1,25 +1,22 @@
 import express from "express";
 import 'dotenv/config'
 //import {  } from "";
+import { router as customersRouter } from "./routes/customersRouter";
 import { AppDataSource } from "./db";
 
-
 const app = express();
+const PORT = process.env.PORT || 5000
 
-app.use(express.json())
+app.use('/customer', customersRouter)
 
-const PORT = process.env.PORT || 4000
+app.get('/', (req, res) => {
+  res.send('Home Page Mery');
+});
 
+app.get('/about', (req, res) => {
+  res.send('About Page');
+});
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log('Database connected');
-    
-    app.listen(PORT, () => {
-      console.log(`Server running ${PORT}`);
-    })
-  })
-  .catch(error => {
-    console.log(error)
-  })
-  
+app.listen(PORT, () => {
+  console.log(`Servidor corre en puerto ${PORT}`);
+});

@@ -4,6 +4,12 @@ import { Customers } from "../models/Customers";
 import bcrypt from "bcrypt";
 import { Appointment } from "../models/Appointment";
 
+const test = async (req: Request, res: Response) => {
+  return res.json({
+    success: true,
+    message: "TEST"
+  })
+}
 
 const register = async (req: Request, res: Response) => {
     try {
@@ -144,4 +150,4 @@ const get_tattooartists = async (req: Request, res: Response) => {
 }
 
 
-export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists}
+export { test, register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists}
