@@ -1,14 +1,14 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class MigracionCustomers implements MigrationInterface {
+export class Tattooartist1699047100282 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "customers",
+                name: "tattooartist",
                 columns: [
                     {
-                        name: "customers_id",
+                        name: "id",
                         type: "int",
                         isPrimary: true,
                         isGenerated: true,
@@ -26,16 +26,15 @@ export class MigracionCustomers implements MigrationInterface {
                         isUnique: true
                     },
                     {
+                    name: "phone_number",
+                    type: "varchar",
+                    length:"20"
+                    },
+                    {
                         name: "password",
                         type: "varchar",
                         length: "200"
                     },
-                    {
-                        name: "phone_number",
-                        type: "varchar",
-                        length: "20"
-                    },
-
                     {
                         name: "is_active",
                         type: "boolean",
@@ -44,26 +43,28 @@ export class MigracionCustomers implements MigrationInterface {
                     {
                         name: "role",
                         type: "enum",
-                        enum: ["user", "admin"],
-                        default: '"user"'
+                        enum: ["admin", "super_admin"],
+                        default: '"admin"'
                     },
                     {
                         name: "created_at",
                         type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",
+                        default: "CURRENT_TIMESTAMP",                        
                     },
                     {
                         name: "updated_at",
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",
-                        onUpdate: "CURRENT_TIMESTAMP"
-                    }, 
+                        onUpdate: "CURRENT_TIMESTAMP"                 
+                    },
                 ],
             }),
             true
         );
+    
     }
+
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("customers");
+        await queryRunner.dropTable("tattooartist");
     }
 }

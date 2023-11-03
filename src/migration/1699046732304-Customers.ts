@@ -1,40 +1,52 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class MigracionAppointments implements MigrationInterface {
+export class Customers1699046732304 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "appointments",
+                name: "customers",
                 columns: [
                     {
-                        name: "id",
+                        name: "customers_id",
                         type: "int",
                         isPrimary: true,
                         isGenerated: true,
                         generationStrategy: "increment",
                     },
                     {
-                        name: "date",
-                        type: "date",
+                        name: "username",
+                        type: "varchar",
+                        length: "50"
                     },
                     {
-                        name: "sessions",
-                        type: "enum",
-                        enum: ["tattoo", "piercing"]
+                        name: "email",
+                        type: "varchar",
+                        length: "100",
+                        isUnique: true
+                    },
+                    {
+                        name: "password",
+                        type: "varchar",
+                        length: "200"
+                    },
+                    {
+                        name: "phone_number",
+                        type: "varchar",
+                        length: "20"
                     },
 
                     {
-                        name: "availability",
+                        name: "is_active",
                         type: "boolean",
                         default: true
                     },
                     {
-                        name: "time",
+                        name: "role",
                         type: "enum",
-                        enum: ["09:00", "12:00", "15:00", "18:00"]
+                        enum: ["user", "admin"],
+                        default: '"user"'
                     },
-
                     {
                         name: "created_at",
                         type: "timestamp",
@@ -45,26 +57,14 @@ export class MigracionAppointments implements MigrationInterface {
                         type: "timestamp",
                         default: "CURRENT_TIMESTAMP",
                         onUpdate: "CURRENT_TIMESTAMP"
-                    },
-                    {
-                        name: "customers_id",
-                        type: "int",
-                        
-                    },
-                    {
-                        name: "tattooartist_id",
-                        type: "int",
-                    },
+                    }, 
                 ],
             }),
             true
         );
-        await queryRunner.query(`ALTER TABLE appointments ADD CONSTRAINT fk_customers FOREIGN KEY (customers_id) REFERENCES customers(customers_id) ON DELETE CASCADE;`);
-        await queryRunner.query(`ALTER TABLE appointments ADD CONSTRAINT fk_tattooartist FOREIGN KEY (tattooartist_id) REFERENCES tattooartist(id) ON DELETE CASCADE;`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("appointments");
+        await queryRunner.dropTable("customers");
     }
-
 }

@@ -1,15 +1,14 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm"
 import "dotenv/config"
-
+import { Customers1699046732304 } from "./migration/1699046732304-Customers";
+import { Tattooartist1699047100282 } from "./migration/1699047100282-Tattooartist";
+import { Appointments1699047323365 } from "./migration/1699047323365-Appointments";
+import { Desingallery1699047703797 } from "./migration/1699047703797-Desingallery";
 import { Customers } from "./models/Customers";
 import { Tattooartist } from "./models/Tattooartist";
 import { Appointment} from "./models/Appointment";
 import { Desingallery } from "./models/Desingallery";
-import { MigracionDesingallery } from "./migration/MigracionDesingallery";
-import { MigracionAppointments } from "./migration/MigracionAppointments";
-import { MigracionTattooartist } from "./migration/MigracionTattooartist";
-import { MigracionCustomers } from "./migration/MigracionCustomers";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -19,8 +18,8 @@ export const AppDataSource = new DataSource({
   password: "123456789",
   database: "tattoo",
   entities: [Customers, Tattooartist, Appointment, Desingallery ],
-  migrations: [MigracionDesingallery, MigracionAppointments, MigracionTattooartist,MigracionCustomers
-    ],
+  migrations: [ Customers1699046732304, Tattooartist1699047100282,
+    Appointments1699047323365, Desingallery1699047703797],
   synchronize: false,
   logging: false,
 })
