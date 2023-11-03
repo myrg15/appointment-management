@@ -31,9 +31,19 @@ export class Tattooartist extends BaseEntity{
     @Column()
     updated_at!: Date
 
+ 
     @Column()
-    appointments!: Appointment
+    customers_id!: number
+    
+    @Column()
+    desingallery_id!: number
 
-    @Column()
-    desingallery!: Desingallery
+    // +1 829 923 6045
+    /* Un artista puede tener muchas citas */
+    @OneToMany(() => Appointment, (appointment) => appointment.tattooartist)
+    appointments!: Appointment[];
+
+    /* Un artista puede tener muchos disenos*/
+    @OneToMany(() => Desingallery, (desingallery) => desingallery.tattooartist)
+    desingallerys!: Desingallery[];
 }

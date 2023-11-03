@@ -29,7 +29,7 @@ export class Desingallery extends BaseEntity{
     @Column()
     tattooartist_id!: number
   
-   @ManyToOne(() => Tattooartist, (tattooartist) => tattooartist.desingallery)
+   @ManyToOne(() => Tattooartist, (tattooartist) => tattooartist.desingallerys)
    @JoinColumn({name: "tattooartist_id"})
    tattooartist!:Tattooartist;
 }

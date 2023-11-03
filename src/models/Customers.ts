@@ -30,8 +30,9 @@ export class Customers extends BaseEntity {
     @Column()
     updated_at!: Date
 
-    @Column()
-    appointments!: Appointment
-  
+    /* Un customer purede tener muchas citas */
+   @OneToMany(() => Appointment, (appointment) => appointment.customers)
+   appointments!: Appointment[];
+
    }
 
