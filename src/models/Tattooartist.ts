@@ -39,11 +39,11 @@ export class Tattooartist extends BaseEntity{
     desingallery_id!: number
 
    
-    /* Un artista puede tener muchas citas */
+    
     @OneToMany(() => Appointment, (appointment) => appointment.tattooartist)
     appointments!: Appointment[];
 
-    /* Un artista puede tener muchos disenos*/
+    
     @OneToMany(() => Desingallery, (desingallery) => desingallery.tattooartist)
     desingallerys!: Desingallery[];
 }
