@@ -1,7 +1,7 @@
-import express from "express";
+import express from 'express';
 import 'dotenv/config'
-import { router as customersRouter } from "./routes/customersRouter";
-import { AppDataSource } from "./db";
+import { router as customersRouter } from './routes/customersRouter';
+import { AppDataSource } from './database';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -14,21 +14,14 @@ app.use(bodyParser.json());
 app.use('/customer', customersRouter);
 
 app.get('/', (req, res) => {
-  res.send('Home Page');
+  res.send('Home PageX');
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor corre en puerto ${PORT}`);
-});
-
-/*AppDataSource.initialize()
+AppDataSource.initialize()
   .then(() => {
     console.log('Database connected');
-    
-    app.listen(PORT, () => {
-      console.log(`Server running ${PORT}`);
-    })
+    app.listen(PORT, () => {console.log(`Server running ${PORT}`);})
   })
   .catch(error => {
     console.log(error)
-  })*/
+  })

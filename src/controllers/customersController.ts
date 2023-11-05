@@ -3,8 +3,11 @@ import jwt from "jsonwebtoken";
 import { Customers } from "../models/Customers";
 import bcrypt from "bcrypt";
 import { Appointment } from "../models/Appointment";
-import { resolve } from "dns/promises";
-import { createConnection, getRepository } from "typeorm";
+import { createAppointment } from './appointmentsController';
+import { AppDataSource } from "../database";
+
+//import { resolve } from "dns/promises";
+//import { createConnection, getRepository } from "typeorm";
 
 const register = async (req: Request, res: Response) => {
       // recuperamos la info que nos envian desde el body
@@ -26,12 +29,12 @@ const register = async (req: Request, res: Response) => {
   
       // Guardamos la info en la bd
       
-      const newCustomer = new Customers();
-      newCustomer.username = username;
-      newCustomer.email = email;
-      newCustomer.password = encryptedPassword;
-      newCustomer.phone_number = phone_number
-      newCustomer.save()
+      const new_customer = new Customers();
+      new_customer.username = username;
+      new_customer.email = email;
+      new_customer.password = encryptedPassword;
+      new_customer.phone_number = phone_number
+      await AppDataSource.manager.save(new_customer)
 
       /*const newCustomer = await Customers.create({
         username: username,
@@ -43,7 +46,7 @@ const register = async (req: Request, res: Response) => {
       return res.json({
               success: true,
               message: 'User created succesfully',
-              customer: newCustomer
+              customer: new_customer
             })
 }
 
@@ -91,8 +94,7 @@ const login = async (req: Request, res: Response) => {
           }
         );
     
-        return res.json(
-          {
+        return res.json({
             success: true,
             message: "User logged succesfully",
             token: token
@@ -115,7 +117,6 @@ const profile = async (req: Request, res: Response) => {
 const update = async (req: Request, res: Response) => {
 
 }
-
 
 /*Controles del citas */
 const create_appointment = async (req: Request, res: Response) => {
