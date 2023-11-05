@@ -137,7 +137,7 @@ const update_appointment = async (req: Request, res: Response) => {
 }
 
 const delete_appointment = async (req: Request, res: Response) => {
-  appointment_delete(req)
+  appointment_delete(req);
 }
 
 const get_my_appointments = async (req: Request, res: Response) => {
