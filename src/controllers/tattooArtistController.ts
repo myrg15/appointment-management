@@ -11,8 +11,7 @@ const update = async (req: Request, res: Response) => {
 }
 
 const create_appointment = async (req: Request, res: Response) => {
-  appointment_create(req);
-  return res.json({'datae':'hola'})
+  return appointment_create(req, res);
 }
 
 const update_appointment = async (req: Request, res: Response) => {
@@ -20,7 +19,7 @@ const update_appointment = async (req: Request, res: Response) => {
 }
 
 const delete_appointment = async (req: Request, res: Response) => {
-  appointment_delete(req)
+  appointment_delete(req);
 }
 
 const get_my_appointments = async (req: Request, res: Response) => {

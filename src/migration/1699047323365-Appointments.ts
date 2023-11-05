@@ -49,7 +49,6 @@ export class Appointments1699047323365 implements MigrationInterface {
                     {
                         name: "customers_id",
                         type: "int",
-                        
                     },
                     {
                         name: "tattooartist_id",
