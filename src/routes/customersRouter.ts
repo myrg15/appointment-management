@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { test, login, profile, register, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists } from "../controllers/customersController";
+import { login, profile, register, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists, test } from "../controllers/customersController";
 import { auth } from "../middlewares/auth";
-import { isSuperAdmin } from "../middlewares/isSuperAdmin";
+
 
 const router = Router()
 

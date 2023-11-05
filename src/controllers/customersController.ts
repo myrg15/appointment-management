@@ -3,55 +3,48 @@ import jwt from "jsonwebtoken";
 import { Customers } from "../models/Customers";
 import bcrypt from "bcrypt";
 import { Appointment } from "../models/Appointment";
-
-const test = async (req: Request, res: Response) => {
-  return res.json({
-    success: true,
-    message: "TEST"
-  })
-}
+import { resolve } from "dns/promises";
+import { createConnection, getRepository } from "typeorm";
 
 const register = async (req: Request, res: Response) => {
-    try {
-        // recuperamos la info que nos envian desde el body
-        const username = req.body.username;
-        const email = req.body.email;
-        const password = req.body.password
-        const phone_number = req.body.phone_number
-    
-        // validaciones email, password
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    
-        if (!emailRegex.test(email)) {
-          return res.json({ mensaje: 'Correo electrónico no válido' });
-        }
-    
-        // Trato la informacion
-        const encryptedPassword = bcrypt.hashSync(password, 10)
-    
-        // Guardamos la info en la bd
-        const newUser = await Customers.create({
-          username: username,
-          email: email,
-          password: encryptedPassword,
-          phone_number:phone_number
-        }).save()
-    
-        // Devolvemos una respuesta
-        return res.json({
-          success: true,
-          message: "User created succesfully",
-          token: newUser
-        })
-      } catch (error) {
-        return res.status(500).json(
-          {
-            success: false,
-            message: "user cant be created",
-            error: error
-          }
-        )
+      // recuperamos la info que nos envian desde el body
+      
+      const username = req.body.username;
+      const email = req.body.email;
+      const password = req.body.password
+      const phone_number = req.body.phone_number
+   
+      // validaciones email, password
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
+      if (!emailRegex.test(email)) {
+        return res.json({ mensaje: 'Correo electrónico no válido'});
       }
+  
+      // Trato la informacion
+      const encryptedPassword = bcrypt.hashSync(password, 10)
+  
+      // Guardamos la info en la bd
+      
+      const newCustomer = new Customers();
+      newCustomer.username = username;
+      newCustomer.email = email;
+      newCustomer.password = encryptedPassword;
+      newCustomer.phone_number = phone_number
+      newCustomer.save()
+
+      /*const newCustomer = await Customers.create({
+        username: username,
+        email: email,
+        password: encryptedPassword,
+        phone_number:phone_number
+      }).save()*/
+  
+      return res.json({
+              success: true,
+              message: 'User created succesfully',
+              customer: newCustomer
+            })
 }
 
 const login = async (req: Request, res: Response) => {
@@ -123,6 +116,7 @@ const update = async (req: Request, res: Response) => {
 
 }
 
+
 /*Controles del citas */
 const create_appointment = async (req: Request, res: Response) => {
     const new_appointmennt = await Appointment.create({
@@ -149,5 +143,12 @@ const get_tattooartists = async (req: Request, res: Response) => {
     /* Listar tatuadores*/
 }
 
+const test = async (req: Request, res: Response) => {
+  /*const parametro1 = req.body.parametro1;
+  const parametro2 = req.body.parametro2;*/
 
-export { test, register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists}
+  // Hacer algo con los parámetros
+  res.send('GET GET');
+}
+
+export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_appointments, get_tattooartists, test}
