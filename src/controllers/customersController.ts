@@ -139,19 +139,21 @@ const update_appointment = async (req: Request, res: Response) => {
 }
 
 const delete_appointment = async (req: Request, res: Response) => {
-  appointment_delete(req)
+  appointment_delete(req);
 }
 
 const get_my_appointments = async (req: Request, res: Response) => {
-  //Aplicar filtro
-  const all_appoinments = await Appointment.find();
-  return res.json({success:true, appointments:all_appoinments})
+  const AppointmentRepository = AppDataSource.getRepository(Customers);
+  const my_appointments = await AppointmentRepository.findOneBy({customers_id:req.token.id});
+  return res.json({success:true, appointments:my_appointments});
 }
 
 const get_tattooartists = async (req: Request, res: Response) => {
   /* Listado de tatuadores*/
-  const all_artists = await Tattooartist.find();
-  return res.json({success:true, artists:all_artists})
+  //Confirmar que pasa con el campo customers_id de esta tabla
+  //const all_artists = await Tattooartist.find();
+  //return res.json({success:true, artists:all_artists});
+  return res.json({success:false})
 }
 
 export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_my_appointments, get_tattooartists}
