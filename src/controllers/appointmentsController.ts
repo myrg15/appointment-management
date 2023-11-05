@@ -6,26 +6,24 @@ import { time } from "console";
 import { Timestamp } from "typeorm";
 import { AppDataSource } from "../database";
 
-const createAppointment = async (req: Request, res: Response) => {
-  try {
-    const { date, sessions, availability, time } = req.body; 
-
+const appointment_create = async (req: Request) => {
     // Crear una nueva cita y guardarla en la base de datos
     const new_appointement = new Appointment();
-    new_appointement.date = new Date();
+    new_appointement.date = req.body.date;
     new_appointement.sessions = '';
     new_appointement.availability = true,
     new_appointement.time = ''
     await AppDataSource.manager.save(new_appointement)
+}
 
-    return res.json({
-      success: true,
-      message: "Appointment created successfully",
-      appointment: new_appointement});
-  } catch (error) {
-    return res.status(500).json({ error: "Error creating the appointment" });
-  }
-};
+const appointment_update = async (req: Request) => {
+}
 
-export { createAppointment };    
+const appointment_delete = async (req: Request) => {
+}
+
+const appointment_get = async (req: Request) => {
+}
+
+export { appointment_create, appointment_update, appointment_delete, appointment_get };    
 

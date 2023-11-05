@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config'
 import { router as customersRouter } from './routes/customersRouter';
+import { router as tattooartistRouter } from './routes/tattooartistRouter';
 import { AppDataSource } from './database';
 import bodyParser from 'body-parser';
 
@@ -12,10 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/customer', customersRouter);
+app.use('/artist', tattooartistRouter);
 
 app.get('/', (req, res) => {
   res.send('Home PageX');
 });
+
+//app.listen(PORT, () => {console.log(`Server running ${PORT}`);})
 
 AppDataSource.initialize()
   .then(() => {
