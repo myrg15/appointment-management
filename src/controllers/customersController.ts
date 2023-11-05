@@ -97,6 +97,34 @@ const profile = async (req: Request, res: Response) => {
 }
 
 const update = async (req: Request, res: Response) => {
+  //app.put('/perfil/:id', async (req: Request, res: Response) => {
+    try {
+      const customerId = req.token.id;
+
+      const { username, email, phone_number } = req.body;
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
+      if (!emailRegex.test(email)) {
+        return res.json({ mensaje: 'Email inválido' });
+      }
+  
+      const customerRepository = AppDataSource.getRepository(Customers);
+      const all_customers = await customerRepository.find();
+      const single_customer = await customerRepository.findOneBy({customers_id:customerId});
+      if (!single_customer) {
+        return res.json({ success:false, message: 'Usuario no encontrado' });
+      }else{
+        single_customer.username = username;
+        single_customer.email = email;
+        single_customer.phone_number = phone_number;
+        await customerRepository.save(single_customer);
+
+        return res.json({success:true, message:'user created', customer:single_customer});
+      } 
+    }
+    catch (error){
+      return res.json({success:false, message:'no fue posible actualizar usuario'})
+    }
 }
 
 /*Creacion de citas */
