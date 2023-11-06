@@ -29,6 +29,12 @@ const appointment_update = async (req: Request) => {
 }
 
 const appointment_delete = async (req: Request) => {
+    /*
+    const customerRepository = AppDataSource.getRepository(Appointment);
+    const query = `DELETE FROM customers WHERE role = 'guest'`;
+    const result = await customerRepository.query(query);
+    //return res.json({success:true, message:'Cita eliminada'});
+    */
 }
 
 const appointment_get = async (req: Request) => {

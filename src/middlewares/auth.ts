@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { TokenDecoded } from "../types";
 
 const auth = (req: Request, res: Response, next: NextFunction) => {
-  console.log('AUTENTICANDO USUARIO');
+  console.log('AUTHENTICATING USER');
   try {
     if (!req.headers.authorization) {
       return res.json({
