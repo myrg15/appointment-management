@@ -7,9 +7,6 @@ import { appointment_create, appointment_update, appointment_delete, appointment
 import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
 
-//import { resolve } from "dns/promises";
-//import { createConnection, getRepository } from "typeorm";
-
 const register = async (req: Request, res: Response) => {
       try {
             const username = req.body.username;
@@ -23,14 +20,12 @@ const register = async (req: Request, res: Response) => {
             if (!emailRegex.test(email)) {
               return res.json({ mensaje: 'invalid email'});
             }
-
             const new_customer = new Customers();
             new_customer.username = username;
             new_customer.email = email;
             new_customer.password = bcrypt.hashSync(password, 10);
             new_customer.phone_number = phone_number
             await AppDataSource.manager.save(new_customer)
-
             return res.json({
               success: true,
               message: 'user created succesfully',
@@ -43,7 +38,6 @@ const register = async (req: Request, res: Response) => {
             });
       }
 }
-
 const login = async (req: Request, res: Response) => {
     const email = req.body.email
     const password = req.body.password
@@ -52,21 +46,18 @@ const login = async (req: Request, res: Response) => {
         email: email
       }
     );
-
     if (!customer) {
       return res.status(400).json({
           success: true,
           message: 'user or password incorrect',
         })
     }
-
     if (!bcrypt.compareSync(password, customer.password)) {
       return res.status(400).json({
           success: true,
           message: 'user or password incorrect',
       })
     }
-
     //Generar token
     const token = jwt.sign({
         customers_id: customer.customers_id,
@@ -84,7 +75,6 @@ const login = async (req: Request, res: Response) => {
         token: token
     });
 }
-
 const profile = async (req: Request, res: Response) => {
   /* QUITA LA CONTRASENA DE LA RESPUESTA */
   try{
@@ -97,7 +87,6 @@ const profile = async (req: Request, res: Response) => {
     return res.json({success: false, 'profile':{}});
   }
 }
-
 const update = async (req: Request, res: Response) => {
   //app.put('/perfil/:id', async (req: Request, res: Response) => {
     try {
@@ -109,7 +98,6 @@ const update = async (req: Request, res: Response) => {
       if (!emailRegex.test(email)) {
         return res.json({ mensaje: 'Email inválido' });
       }
-  
       const customerRepository = AppDataSource.getRepository(Customers);
       const all_customers = await customerRepository.find();
       const single_customer = await customerRepository.findOneBy({customers_id:customerId});
@@ -128,26 +116,21 @@ const update = async (req: Request, res: Response) => {
       return res.json({success:false, message:'no fue posible actualizar usuario'})
     }
 }
-
 /*Creacion de citas */
 const create_appointment = async (req: Request, res: Response) => {
   return appointment_create(req, res);
 }
-
 const update_appointment = async (req: Request, res: Response) => {
   appointment_update(req)
 }
-
 const delete_appointment = async (req: Request, res: Response) => {
   appointment_delete(req);
 }
-
 const get_my_appointments = async (req: Request, res: Response) => {
   const AppointmentRepository = AppDataSource.getRepository(Customers);
   const my_appointments = await AppointmentRepository.findOneBy({customers_id:req.token.id});
   return res.json({success:true, appointments:my_appointments});
 }
-
 const get_tattooartists = async (req: Request, res: Response) => {
   /* Listado de tatuadores*/
   //Confirmar que pasa con el campo customers_id de esta tabla
@@ -155,5 +138,4 @@ const get_tattooartists = async (req: Request, res: Response) => {
   //return res.json({success:true, artists:all_artists});
   return res.json({success:false})
 }
-
 export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_my_appointments, get_tattooartists}

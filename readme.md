@@ -62,6 +62,22 @@ and finally the **desingallery** entity with properties id, name, date, imag, de
     <td valign="top"><img src=https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/2048px-Typescript_logo_2020.svg.png width="55"></td>
      <td valign="top"><img src="https://avatars.githubusercontent.com/u/20165699?v=4" width="60"></td>
 
+### Endpoints
+
+### customer/register
+>> POST   http://localhost:4000/customer/register
+>>{
+  >>"success": true,
+  >>"message": "user created succesfully",
+  >>"customer": {
+  >>"username": "jose",
+  >>"email": "jomo@gmail.com",
+  >>"password": "$2b$10$evszSUD9EUbtGenfDHe0cuHakneXnoCSYrSJWIM2HmiuBvoKFD5rC",
+  >>"phone_number": "8299236045",
+  >>"customers_id": 3
+  >>}
+>>}
+
 ### Grateful
 First of all to my colleagues who have contributed their opinions at opportune moments to make all the information seen in the classroom more fluid, to the existence of applications such as stack overflow, tutorials on the subject.  
 ​
