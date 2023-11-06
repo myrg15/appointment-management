@@ -7,7 +7,6 @@ import { appointment_create, appointment_update, appointment_delete, appointment
 import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
 
-
 const register = async (req: Request, res: Response) => {
   try {
     const username = req.body.username;
@@ -41,7 +40,6 @@ const register = async (req: Request, res: Response) => {
     });
   }
 }
-
 const login = async (req: Request, res: Response) => {
   const email = req.body.email
   const password = req.body.password
@@ -82,7 +80,6 @@ const login = async (req: Request, res: Response) => {
     token: token
   });
 }
-
 const profile = async (req: Request, res: Response) => {
   /* QUITAR LA CONTRASENA DE LA RESPUESTA */
   try {
@@ -95,7 +92,6 @@ const profile = async (req: Request, res: Response) => {
     return res.json({ success: false, 'profile': {} });
   }
 }
-
 const update = async (req: Request, res: Response) => {
   //app.put('/perfil/:id', async (req: Request, res: Response) => {
     try {
@@ -107,7 +103,6 @@ const update = async (req: Request, res: Response) => {
       if (!emailRegex.test(email)) {
         return res.json({ mensaje: 'Email inválido' });
       }
-  
       const customerRepository = AppDataSource.getRepository(Customers);
       const all_customers = await customerRepository.find();
       const single_customer = await customerRepository.findOneBy({customers_id:customerId});
@@ -126,26 +121,21 @@ const update = async (req: Request, res: Response) => {
       return res.json({success:false, message:'no fue posible actualizar usuario'})
     }
 }
-
 /*Creacion de citas */
 const create_appointment = async (req: Request, res: Response) => {
   return appointment_create(req, res);
 }
-
 const update_appointment = async (req: Request, res: Response) => {
   appointment_update(req)
 }
-
 const delete_appointment = async (req: Request, res: Response) => {
   appointment_delete(req);
 }
-
 const get_my_appointments = async (req: Request, res: Response) => {
   //Aplicar filtro
   const all_appoinments = await Appointment.find();
   return res.json({ success: true, appointments: all_appoinments })
 }
-
 const get_tattooartists = async (req: Request, res: Response) => {
   /* Listado de tatuadores*/
   const all_artists = await Tattooartist.find();
