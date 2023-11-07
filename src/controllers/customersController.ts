@@ -13,14 +13,12 @@ const register = async (req: Request, res: Response) => {
     const email = req.body.email;
     const password = req.body.password
     const phone_number = req.body.phone_number
-
-    // Validacion de email
+    //validation email
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     if (!emailRegex.test(email)) {
-      return res.json({ mensaje: 'Correo electrónico no válido' });
+      return res.json({ mensaje: 'email invalid' });
     }
-
     const new_customer = new Customers();
     new_customer.username = username;
     new_customer.email = email;
@@ -30,13 +28,13 @@ const register = async (req: Request, res: Response) => {
 
     return res.json({
       success: true,
-      message: 'User created succesfully',
+      message: 'user created succesfully',
       customer: new_customer
     })
   } catch (error) {
     return res.json({
       success: false,
-      message: "No fue posible crear el usuario",
+      message: "user cannot be created",
     });
   }
 }
@@ -62,8 +60,7 @@ const login = async (req: Request, res: Response) => {
       message: 'User or password incorrect',
     })
   }
-
-  //Generar token
+  //generate token
   const token = jwt.sign({
     customers_id: customer.customers_id,
     role: customer.role,
@@ -76,12 +73,11 @@ const login = async (req: Request, res: Response) => {
 
   return res.json({
     success: true,
-    message: "User logged succesfully",
+    message: "user logged succesfully",
     token: token
   });
 }
 const profile = async (req: Request, res: Response) => {
-  /* QUITAR LA CONTRASENA DE LA RESPUESTA */
   try {
     const customer = await Customers.findOneBy(
       {
@@ -94,32 +90,32 @@ const profile = async (req: Request, res: Response) => {
 }
 const update = async (req: Request, res: Response) => {
   //app.put('/perfil/:id', async (req: Request, res: Response) => {
-    try {
-      const customerId = req.token.id;
+  try {
+    const customerId = req.token.id;
 
-      const { username, email, phone_number } = req.body;
-      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  
-      if (!emailRegex.test(email)) {
-        return res.json({ mensaje: 'Email inválido' });
-      }
-      const customerRepository = AppDataSource.getRepository(Customers);
-      const all_customers = await customerRepository.find();
-      const single_customer = await customerRepository.findOneBy({customers_id:customerId});
-      if (!single_customer) {
-        return res.json({ success:false, message: 'Usuario no encontrado' });
-      }else{
-        single_customer.username = username;
-        single_customer.email = email;
-        single_customer.phone_number = phone_number;
-        await customerRepository.save(single_customer);
+    const { username, email, phone_number } = req.body;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-        return res.json({success:true, message:'user created', customer:single_customer});
-      } 
+    if (!emailRegex.test(email)) {
+      return res.json({ mensaje: 'email inavalid' });
     }
-    catch (error){
-      return res.json({success:false, message:'no fue posible actualizar usuario'})
+    const customerRepository = AppDataSource.getRepository(Customers);
+    const all_customers = await customerRepository.find();
+    const single_customer = await customerRepository.findOneBy({ customers_id: customerId });
+    if (!single_customer) {
+      return res.json({ success: false, message: 'Usuario no encontrado' });
+    } else {
+      single_customer.username = username;
+      single_customer.email = email;
+      single_customer.phone_number = phone_number;
+      await customerRepository.save(single_customer);
+
+      return res.json({ success: true, message: 'user created', customer: single_customer });
     }
+  }
+  catch (error) {
+    return res.json({ success: false, message: 'no fue posible actualizar usuario' })
+  }
 }
 /*Creacion de citas */
 const create_appointment = async (req: Request, res: Response) => {
@@ -133,14 +129,14 @@ const delete_appointment = async (req: Request, res: Response) => {
 }
 const get_my_appointments = async (req: Request, res: Response) => {
   const AppointmentRepository = AppDataSource.getRepository(Customers);
-  const my_appointments = await AppointmentRepository.findOneBy({customers_id:req.token.id});
-  return res.json({success:true, appointments:my_appointments});
+  const my_appointments = await AppointmentRepository.findOneBy({ customers_id: req.token.id });
+  return res.json({ success: true, appointments: my_appointments });
 }
 const get_tattooartists = async (req: Request, res: Response) => {
   /* Listado de tatuadores*/
   //Confirmar que pasa con el campo customers_id de esta tabla
   //const all_artists = await Tattooartist.find();
   //return res.json({success:true, artists:all_artists});
-  return res.json({success:false})
+  return res.json({ success: false })
 }
-export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_my_appointments, get_tattooartists}
+export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_my_appointments, get_tattooartists }
