@@ -55,66 +55,18 @@ try {
     });
   };
 }
- 
+
+//PENDIENTE VERIFICAR ERROR TOKEN, ME DICE QUE PUEDE SER QUE NO SEA VALIDO O HAYA EXPIRADO
+//DEBO PONER UN TRY CATCH
 const create_tattooArtist = async (req: Request, res: Response) => {
-  try {
+
     const token = req.headers.token;
     let decodedToken : JwtPayload;
 
-    try {
-    decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
-    } catch (error)} 
-    return res.status(401).json({
-      success:false,
-      message: 'token invalid or expired',
-    });
-  }
+    //
+    decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload; 
     
-    const tatuadorRole = decodedToken.role;
-
-    if (tatuadorRole !== 'super_admin') {
-      return res.status(403).json({
-        success: false,
-        message: 'permission denied only super admins can create tattoartist',
-      });
-    }
-
-   /* const token = jwt.sign(
-      {
-        role : role
-      },
-      process.env.JWT_SECRET as string,
-      {
-        expiresIn: '3h',
-      }
-    );
-    return res.json({
-      success: true,
-      message: 'user successfully authenticated',
-      token: token,
-    });*/
-
-    const new_tattoArtist = new Tattooartist();
-    new_tattoArtist.id =   
-    new_tattoArtist.username = req.body.username; 
-    new_tattoArtist.email = req.body.email;
-    new_tattoArtist.phone_number = req.body.phone_number;
-    new_tattoArtist.password = req.body.password;
-    new_tattoArtist.role = req.body.role
-    await AppDataSource.manager.save(new_tattoArtist)
-  } catch (error) 
-    return res.json({
-      success: true,
-      message: 'user created succesfully',
-      new_tattoArtist: new_tattoArtist
-    })
-  
- /*   return res.json({
-      success: false,
-      message: "user cannot be created",
-    });
-  };*/
- 
+}
 
 const profile = async (req: Request, res: Response) => {
 }

@@ -89,7 +89,6 @@ const profile = async (req: Request, res: Response) => {
   }
 }
 const update = async (req: Request, res: Response) => {
-  //app.put('/perfil/:id', async (req: Request, res: Response) => {
   try {
     const customerId = req.token.id;
 
@@ -134,9 +133,6 @@ const get_my_appointments = async (req: Request, res: Response) => {
 }
 const get_tattooartists = async (req: Request, res: Response) => {
   /* Listado de tatuadores*/
-  //Confirmar que pasa con el campo customers_id de esta tabla
-  //const all_artists = await Tattooartist.find();
-  //return res.json({success:true, artists:all_artists});
   return res.json({ success: false })
 }
 export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_my_appointments, get_tattooartists }
