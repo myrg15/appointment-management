@@ -3,14 +3,12 @@ import jwt from "jsonwebtoken";
 import { Customers } from "../models/Customers";
 import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
-import { appointment_create, appointment_update, appointment_delete} from './appointmentsController';
+import { appointment_create, appointments_get, appointment_update, appointment_delete } from './appointmentsController';
 import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
 
 const register = async (req: Request, res: Response) => {
-
   const { username, email, password, phone_number, role } = req.body
-
   try {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailRegex.test(email)) {
@@ -83,51 +81,86 @@ const profile = async (req: Request, res: Response) => {
         email: req.body.email
       });
     return res.json(
-      { 
-        success: true, 
-        message:'profile customer retrieved',
-        date: customer 
+      {
+        success: true,
+        message: 'profile customer retrieved',
+        date: customer
       });
   } catch (error) {
     return res.status(500).json(
-      { 
-      success: false, 
-      message:'customer not get profile',
+      {
+        success: false,
+        message: 'customer not get profile',
       }
     );
   }
 }
 const update = async (req: Request, res: Response) => {
-    try{
-    const {username, email, password, phone_number } = req.body;
-    // const customer = await Customers.findOneBy({customers_id:req.token.id});
+  try {
+    const { username, email, password, phone_number } = req.body;
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    
+
     if (!emailRegex.test(email)) {
       return res.status(400).json({
-        success: false, 
+        success: false,
         mensaje: 'email inavalid',
       });
     }
     const updateProfile = await Customers.save(Customers);
-      return res.json({
-        success : true,
-        message: 'customer profile update successfully',
-        data: updateProfile,
-      });
-    } catch (error){
-      return res.status(500).json({
-        success: false,
-        message: 'customer profile update failed'
-      });
-    }
+    return res.json({
+      success: true,
+      message: 'customer profile update successfully',
+      data: updateProfile,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'customer profile update failed'
+    });
   }
-const get_my_appointments = async (req: Request, res: Response) => {
-  const AppointmentRepository = AppDataSource.getRepository(Customers);
-  //const my_appointments = await AppointmentRepository.findOneBy({ customers_id });
-  //return res.json({ success: true, appointments: my_appointments });
 }
-const get_tattooartists = async (req: Request, res: Response) => {
-  return res.json({ success: false })
+const viewappointments = async (req: Request, res: Response) => {
+  try {
+    const myappointmentes = await Appointment.find({
+      where: {
+        customers_id: req.token.customers_id
+      }
+    })
+    return res.json(
+      {
+        success: true,
+        message: "profile user retrieved",
+        data: myappointmentes
+      });
+  } catch (error) {
+    return res.status(500).json(
+      {
+        success: false,
+        message: "user can't get profile",
+        error: error
+      }
+    )
+  }
 }
-export { register, login, profile, update, get_my_appointments, get_tattooartists }
+const getTattooartist = async (req: Request, res: Response) => {
+  try {
+    const viewTattoartist = await Tattooartist.find({
+      where: {
+        id: req.body.id
+      }
+    })
+    return res.json(
+      {
+        success: true,
+        message: "profile user retrieved",
+        data: viewTattoartist
+      });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "error searching tattoo artist",
+    });
+  }
+}
+export { register, login, profile, update, viewappointments }

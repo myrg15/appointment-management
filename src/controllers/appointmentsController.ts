@@ -5,21 +5,23 @@ import { Tattooartist } from "../models/Tattooartist";
 import { AppDataSource } from "../database";
 
 const appointment_create = async (req: Request, res: Response) => {
-  //const token = req.headers.token;
-  // create appointment / save base date
   const new_appointment = new Appointment();
-  //new_appointment.customers_id = req.token;
-  new_appointment.tattooartist_id = req.body.tattooartist_id;
   new_appointment.date = new Date();
   new_appointment.sessions = req.body.sessions;
   new_appointment.availability = req.body.availability;
   new_appointment.time = req.body.time;
   await AppDataSource.manager.save(new_appointment);
-
   return res.json({
     success: true,
     appointment: new_appointment
   });
+}
+
+const appointments_get = async (req: Request, res: Response) => {
+  const { token } = req
+  const userId = token.customers_id
+  const user = await Customers.findOneBy({ customers_id: userId })
+  res.status(200).json({})
 }
 
 const appointment_update = async (req: Request, res: Response) => {
@@ -28,7 +30,6 @@ const appointment_update = async (req: Request, res: Response) => {
     const appointment = await Appointment.findOne({
       where: {
         id: parseInt(udpdate_appointment),
-        // customers_id: req.token.id,
       },
     });
     if (!appointment) {
@@ -83,9 +84,5 @@ const appointment_delete = async (req: Request, res: Response) => {
     });
   }
 }
-
-//const appointment_get = async (req: Request) => {
-//}
-
-export { appointment_create, appointment_update, appointment_delete};
+export { appointment_create, appointments_get, appointment_update, appointment_delete };
 
