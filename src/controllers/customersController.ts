@@ -13,9 +13,7 @@ const register = async (req: Request, res: Response) => {
     const email = req.body.email;
     const password = req.body.password
     const phone_number = req.body.phone_number
-    //validation email
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
     if (!emailRegex.test(email)) {
       return res.json({ mensaje: 'email invalid' });
     }
@@ -83,49 +81,46 @@ const profile = async (req: Request, res: Response) => {
       {
         email: req.body.email
       });
-    return res.json({ success: true, 'profile': customer });
+    return res.json(
+      { 
+        success: true, 
+        message:'profile customer retrieved',
+        date: customer 
+      });
   } catch (error) {
-    return res.json({ success: false, 'profile': {} });
+    return res.status(500).json(
+      { 
+      success: false, 
+      message:'customer not get profile',
+      }
+    );
   }
 }
 const update = async (req: Request, res: Response) => {
-  try {
-    const customerId = req.token.id;
-
-    const { username, email, phone_number } = req.body;
+    try{
+    const {username, email, password, phone_number } = req.body;
+    const customer = await Customers.findOneBy({customers_id:req.token.id});
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
+    
     if (!emailRegex.test(email)) {
-      return res.json({ mensaje: 'email inavalid' });
+      return res.status(400).json({
+        success: false, 
+        mensaje: 'email inavalid',
+      });
     }
-    const customerRepository = AppDataSource.getRepository(Customers);
-    const all_customers = await customerRepository.find();
-    const single_customer = await customerRepository.findOneBy({ customers_id: customerId });
-    if (!single_customer) {
-      return res.json({ success: false, message: 'Usuario no encontrado' });
-    } else {
-      single_customer.username = username;
-      single_customer.email = email;
-      single_customer.phone_number = phone_number;
-      await customerRepository.save(single_customer);
-
-      return res.json({ success: true, message: 'user created', customer: single_customer });
+    const updateProfile = await Customers.save(Customers);
+      return res.json({
+        success : true,
+        message: 'customer profile update successfully',
+        data: updateProfile,
+      });
+    } catch (error){
+      return res.status(500).json({
+        success: false,
+        message: 'customer profile update failed'
+      });
     }
   }
-  catch (error) {
-    return res.json({ success: false, message: 'no fue posible actualizar usuario' })
-  }
-}
-/*Creacion de citas */
-const create_appointment = async (req: Request, res: Response) => {
-  return appointment_create(req, res);
-}
-const update_appointment = async (req: Request, res: Response) => {
-  appointment_update(req)
-}
-const delete_appointment = async (req: Request, res: Response) => {
-  appointment_delete(req);
-}
 const get_my_appointments = async (req: Request, res: Response) => {
   const AppointmentRepository = AppDataSource.getRepository(Customers);
   const my_appointments = await AppointmentRepository.findOneBy({ customers_id: req.token.id });
@@ -135,4 +130,4 @@ const get_tattooartists = async (req: Request, res: Response) => {
   /* Listado de tatuadores*/
   return res.json({ success: false })
 }
-export { register, login, profile, update, create_appointment, update_appointment, delete_appointment, get_my_appointments, get_tattooartists }
+export { register, login, profile, update, get_my_appointments, get_tattooartists }

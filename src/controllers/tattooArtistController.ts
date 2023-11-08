@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
 import { appointment_create, appointment_update, appointment_delete, appointment_get } from './appointmentsController';
 import { AppDataSource } from "../database";
+import { Appointment } from "../models/Appointment";
 
 const login = async (req: Request, res: Response) =>{
 try {
@@ -55,38 +56,40 @@ try {
     });
   };
 }
+  const getSingleAppointment = async (req: Request, res: Response) => {
+    try {
+        const tattooArtist = req.token.id;
+        const appointment_id = req.params.id;
 
-//PENDIENTE VERIFICAR ERROR TOKEN, ME DICE QUE PUEDE SER QUE NO SEA VALIDO O HAYA EXPIRADO
-//DEBO PONER UN TRY CATCH
+        const appointment = await Appointment.findOne({
+            where: {
+                id: parseInt(appointment_id as string)
+            }
+              });
+
+        if (!appointment) {
+            return res.status(404).json({
+                success: false,
+                message: "appointment not found",
+            });
+        }
+
+        return res.json({
+            success: true,
+            message: "appointment retrieved",
+            data: appointment,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "error while retrieving appointment",
+        });
+    }
+};
+
+
+//PENDIENTE DESARROLLAR ES UN EXTRA
 const create_tattooArtist = async (req: Request, res: Response) => {
-
-    const token = req.headers.token;
-    let decodedToken : JwtPayload;
-
-    //
-    decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload; 
-    
 }
 
-const profile = async (req: Request, res: Response) => {
-}
-
-const update = async (req: Request, res: Response) => {
-}
-
-const create_appointment = async (req: Request, res: Response) => {
-  return appointment_create(req, res);
-}
-
-const update_appointment = async (req: Request, res: Response) => {
-  appointment_update(req)
-}
-
-const delete_appointment = async (req: Request, res: Response) => {
-  appointment_delete(req);
-}
-
-const get_my_appointments = async (req: Request, res: Response) => {
-}
-
-export {create_appointment, update_appointment, delete_appointment, get_my_appointments}
+export {login, getSingleAppointment, create_tattooArtist}
