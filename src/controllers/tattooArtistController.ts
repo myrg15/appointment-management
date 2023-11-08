@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
-import { appointment_create, appointment_update, appointment_delete, appointment_get } from './appointmentsController';
+import { appointment_create, appointment_update, appointment_delete} from './appointmentsController';
 import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
 
