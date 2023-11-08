@@ -44,7 +44,7 @@ export class Customers1699046732304 implements MigrationInterface {
                     {
                         name: "role",
                         type: "enum",
-                        enum: ["user", "admin"],
+                        enum: ["user", "tattooArtits", "admin", "superAdmin"],
                         default: '"user"'
                     },
                     {

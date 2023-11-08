@@ -5,6 +5,7 @@ import { Tattooartist } from "../models/Tattooartist";
 import { appointment_create, appointment_update, appointment_delete} from './appointmentsController';
 import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
+import { userInfo } from "os";
 
 const login = async (req: Request, res: Response) =>{
 try {
@@ -56,9 +57,11 @@ try {
     });
   };
 }
-  const getSingleAppointment = async (req: Request, res: Response) => {
+
+
+const getSingleAppointment = async (req: Request, res: Response) => {
     try {
-        const tattooArtist = req.token.id;
+       // const tattooArtist = req.token.id;
         const appointment_id = req.params.id;
 
         const appointment = await Appointment.findOne({
@@ -87,9 +90,20 @@ try {
     }
 };
 
+const getAppointmentTatto = async (req: Request, res: Response) => {
+    const {token} = req
+
+    const userId = token.customers_id
+
+    const appointments = await Appointment.find({ where :{ customers_id : userId} })
+
+    res.status(200).json({appointments})
+}
+
 
 //PENDIENTE DESARROLLAR ES UN EXTRA
 const create_tattooArtist = async (req: Request, res: Response) => {
+  res.status(200).json({})
 }
 
-export {login, getSingleAppointment, create_tattooArtist}
+export {login, getSingleAppointment, create_tattooArtist, getAppointmentTatto}

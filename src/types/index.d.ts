@@ -1,7 +1,7 @@
 export { }
 
 export interface TokenDecoded {
-  id: number,
+  customers_id: number,
   role: string,
   email: string
 }

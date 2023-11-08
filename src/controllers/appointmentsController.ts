@@ -5,10 +5,10 @@ import { Tattooartist } from "../models/Tattooartist";
 import { AppDataSource } from "../database";
 
 const appointment_create = async (req: Request, res: Response) => {
-  const token = req.headers.token;
+  //const token = req.headers.token;
   // create appointment / save base date
   const new_appointment = new Appointment();
-  new_appointment.customers_id = req.token.id;
+  //new_appointment.customers_id = req.token;
   new_appointment.tattooartist_id = req.body.tattooartist_id;
   new_appointment.date = new Date();
   new_appointment.sessions = req.body.sessions;
@@ -28,7 +28,7 @@ const appointment_update = async (req: Request, res: Response) => {
     const appointment = await Appointment.findOne({
       where: {
         id: parseInt(udpdate_appointment),
-        customers_id: req.token.id,
+        // customers_id: req.token.id,
       },
     });
     if (!appointment) {
@@ -84,8 +84,8 @@ const appointment_delete = async (req: Request, res: Response) => {
   }
 }
 
-const appointment_get = async (req: Request) => {
-}
+//const appointment_get = async (req: Request) => {
+//}
 
-export { appointment_create, appointment_update, appointment_delete, appointment_get };
+export { appointment_create, appointment_update, appointment_delete};
 

@@ -21,7 +21,7 @@ export class Customers extends BaseEntity {
     @Column()
     is_active!: boolean
     
-    @Column()
+    @Column({ default: 'user' })
     role!: string
     
     @Column()

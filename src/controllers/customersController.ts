@@ -3,16 +3,15 @@ import jwt from "jsonwebtoken";
 import { Customers } from "../models/Customers";
 import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
-import { appointment_create, appointment_update, appointment_delete, appointment_get } from './appointmentsController';
+import { appointment_create, appointment_update, appointment_delete} from './appointmentsController';
 import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
 
 const register = async (req: Request, res: Response) => {
+
+  const { username, email, password, phone_number, role } = req.body
+
   try {
-    const username = req.body.username;
-    const email = req.body.email;
-    const password = req.body.password
-    const phone_number = req.body.phone_number
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailRegex.test(email)) {
       return res.json({ mensaje: 'email invalid' });
@@ -22,6 +21,7 @@ const register = async (req: Request, res: Response) => {
     new_customer.email = email;
     new_customer.password = bcrypt.hashSync(password, 10);
     new_customer.phone_number = phone_number
+    new_customer.role = role
     await AppDataSource.manager.save(new_customer)
 
     return res.json({
@@ -30,6 +30,7 @@ const register = async (req: Request, res: Response) => {
       customer: new_customer
     })
   } catch (error) {
+    console.log(error)
     return res.json({
       success: false,
       message: "user cannot be created",
@@ -99,7 +100,7 @@ const profile = async (req: Request, res: Response) => {
 const update = async (req: Request, res: Response) => {
     try{
     const {username, email, password, phone_number } = req.body;
-    const customer = await Customers.findOneBy({customers_id:req.token.id});
+    // const customer = await Customers.findOneBy({customers_id:req.token.id});
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     
     if (!emailRegex.test(email)) {
@@ -123,11 +124,10 @@ const update = async (req: Request, res: Response) => {
   }
 const get_my_appointments = async (req: Request, res: Response) => {
   const AppointmentRepository = AppDataSource.getRepository(Customers);
-  const my_appointments = await AppointmentRepository.findOneBy({ customers_id: req.token.id });
-  return res.json({ success: true, appointments: my_appointments });
+  //const my_appointments = await AppointmentRepository.findOneBy({ customers_id });
+  //return res.json({ success: true, appointments: my_appointments });
 }
 const get_tattooartists = async (req: Request, res: Response) => {
-  /* Listado de tatuadores*/
   return res.json({ success: false })
 }
 export { register, login, profile, update, get_my_appointments, get_tattooartists }
