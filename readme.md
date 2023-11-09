@@ -78,6 +78,20 @@ and finally the **desingallery** entity with properties id, name, date, imag, de
   >>}
 >>}
 
+### appoinment/appointments_get
+>> GET  http://localhost:4000/artist/appointments_get
+>>{
+>>"id": 3,
+>>"date": "2023-11-04T23:00:00.000Z",
+>>"sessions": "tattoo",
+>>"availability": false,
+>>"time": "09:00",
+>>"created_at": "2023-11-05T15:43:01.000Z",
+>>"updated_at": "2023-11-08T17:45:33.000Z",
+>>"customers_id": 4,
+>>"tattooartist_id": 1
+>>}
+
 ### Grateful
 First of all to my colleagues who have contributed their opinions at opportune moments to make all the information seen in the classroom more fluid, to the existence of applications such as stack overflow, tutorials on the subject.  
 ​
