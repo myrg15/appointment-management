@@ -10,17 +10,14 @@ import { Tattooartist } from "./models/Tattooartist";
 import { Appointment} from "./models/Appointment";
 import { Desingallery } from "./models/Desingallery";
 
+
 export const AppDataSource = new DataSource({
   type: "mysql",
-  //host: process.env.DB_HOST,
-  //username: process.env.DB_USERNAME,
-  //password: process.env.DB_PASSWORD,
-  //database: process.env.DB_DATABASE,
-  host: "localhost",
+  host:process.env.DB_HOST,
   port: 3306,
-  username: "root",
-  password: "123456789",
-  database: "tattoo",
+  username:process.env.DB_USERNAME,
+  password:process.env.DB_PASSWORD,
+  database:process.env.DB_DATABASE,
   entities: [Customers, Tattooartist, Appointment, Desingallery ],
   migrations: [ Customers1699046732304, Tattooartist1699047100282,
     Appointments1699047323365, Desingallery1699047703797],

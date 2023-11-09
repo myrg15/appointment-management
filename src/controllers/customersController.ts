@@ -9,6 +9,8 @@ import { Appointment } from "../models/Appointment";
 
 const register = async (req: Request, res: Response) => {
   const { username, email, password, phone_number, role } = req.body
+
+  
   try {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailRegex.test(email)) {
@@ -36,11 +38,12 @@ const register = async (req: Request, res: Response) => {
   }
 }
 const login = async (req: Request, res: Response) => {
-  const email = req.body.email
-  const password = req.body.password
+
+  const { email, password } = req.body
+
   const customer = await Customers.findOneBy(
     {
-      email: email
+      email
     }
   );
 
@@ -75,11 +78,16 @@ const login = async (req: Request, res: Response) => {
   });
 }
 const profile = async (req: Request, res: Response) => {
+
+  const { email } = req.token
+
   try {
     const customer = await Customers.findOneBy(
       {
-        email: req.body.email
-      });
+        email
+      },
+      );
+
     return res.json(
       {
         success: true,
@@ -96,22 +104,24 @@ const profile = async (req: Request, res: Response) => {
   }
 }
 const update = async (req: Request, res: Response) => {
-  try {
-    const { username, email, password, phone_number } = req.body;
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        success: false,
-        mensaje: 'email inavalid',
+  const { email } = req.token
+
+  try {
+
+    const user = await Customers.findOneBy({email})
+
+    if(user){
+      Object.assign(user, req.body)
+      const updateProfile = await Customers.save(user);
+
+      return res.json({
+        success: true,
+        message: 'customer profile update successfully',
+        data: updateProfile,
       });
     }
-    const updateProfile = await Customers.save(Customers);
-    return res.json({
-      success: true,
-      message: 'customer profile update successfully',
-      data: updateProfile,
-    });
+    
   } catch (error) {
     return res.status(500).json({
       success: false,
