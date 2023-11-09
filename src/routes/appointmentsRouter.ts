@@ -8,7 +8,7 @@ import { appointment_create, appointments_get, appointment_update, appointment_d
 const router = Router()
 
 
-router.post('/appointment_create', appointment_create)
+router.put('/appointment_create', appointment_create)
 router.get('/appointments_get', auth, appointments_get)
 router.post('/appointment_update', auth, appointment_update)
 router.put('/appointment_delete', auth, appointment_delete)

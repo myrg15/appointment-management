@@ -24,46 +24,48 @@ const appointments_get = async (req: Request, res: Response) => {
   res.status(200).json({})
 }
 
-const appointment_update = async (req: Request, res: Response) => {
-  try {
-    const udpdate_appointment = req.params.id;
-    const appointment = await Appointment.findOne({
-      where: {
-        id: parseInt(udpdate_appointment),
-      },
-    });
-    if (!appointment) {
-      return res.status(404).json({
+  const appointment_update = async (req: Request, res: Response) => {
+    try {
+      const udpdate_appointment = req.params.id;
+      const appointment = await Appointment.findOne({
+        
+        where: {
+          id: parseInt(udpdate_appointment),
+        },
+      });
+      if (!appointment) {
+        return res.status(404).json({
+          success: false,
+          message: 'appointment not found',
+        });
+      }
+      if (req.body.date) {
+        appointment.date = req.body.date;
+      }
+      if (req.body.sessions) {
+        appointment.sessions = req.body.sessions;
+      }
+      if (req.body.availability) {
+        appointment.availability = req.body.availability;
+      }
+      if (req.body.time) {
+        appointment.time = req.body.time;
+      }
+      const appointment_update = await appointment.save();
+  
+      return res.json({
+        success: true,
+        messege: 'appointment update successfully',
+        data: appointment_update,
+      });
+    } catch (error) {
+      return res.status(500).json({
         success: false,
-        message: 'appointment not found',
+        message: 'appointmente update failed',
       });
     }
-    if (req.body.date) {
-      appointment.date = req.body.date;
-    }
-    if (req.body.sessions) {
-      appointment.sessions = req.body.sessions;
-    }
-    if (req.body.availability) {
-      appointment.availability = req.body.availability;
-    }
-    if (req.body.time) {
-      appointment.time = req.body.time;
-    }
-    const appointment_update = await appointment.save();
-
-    return res.json({
-      success: true,
-      messege: 'appointment update successfully',
-      data: appointment_update,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: 'appointmente update failed',
-    });
   }
-}
+
 
 const appointment_delete = async (req: Request, res: Response) => {
   try {

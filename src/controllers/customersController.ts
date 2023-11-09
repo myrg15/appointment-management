@@ -3,14 +3,12 @@ import jwt from "jsonwebtoken";
 import { Customers } from "../models/Customers";
 import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
-import { appointment_create, appointments_get, appointment_update, appointment_delete } from './appointmentsController';
+//import { appointment_create, appointments_get, appointment_update, appointment_delete } from './appointmentsController';
 import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
 
 const register = async (req: Request, res: Response) => {
   const { username, email, password, phone_number, role } = req.body
-
-  
   try {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailRegex.test(email)) {
