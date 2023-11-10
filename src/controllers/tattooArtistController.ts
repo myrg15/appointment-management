@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
-import { appointment_create, appointments_get, appointment_update, appointment_delete } from './appointmentsController';
+// import { appointment_create, appointments_get, appointment_update, appointment_delete } from './appointmentsController';
 import { Appointment } from "../models/Appointment";
 
 const login = async (req: Request, res: Response) => {
@@ -58,7 +58,7 @@ const login = async (req: Request, res: Response) => {
 const getAllAppointment = async (req: Request, res: Response) => {
   try {
     const appointment_id = req.params.id;
-    const appointment = await Appointment.findOne({
+    const appointment = await Appointment.findOne({ //no deberia usar el metodo finOne para recuperar todas las citas
       where: {
         id: parseInt(appointment_id as string)
       }

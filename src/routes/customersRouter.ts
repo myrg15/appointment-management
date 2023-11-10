@@ -2,7 +2,7 @@ import { Router } from "express";
 import { register, login, profile, update, viewappointments } from "../controllers/customersController";
 import { auth } from "../middlewares/auth";
 import { existEmail } from "../middlewares/existEmailMiddleware";
-import { appointments_get } from "../controllers/appointmentsController";
+
 
 const router = Router()
 
