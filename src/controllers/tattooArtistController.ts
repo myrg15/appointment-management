@@ -2,7 +2,6 @@ import { Response, Request } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
-// import { appointment_create, appointments_get, appointment_update, appointment_delete } from './appointmentsController';
 import { Appointment } from "../models/Appointment";
 
 const login = async (req: Request, res: Response) => {
@@ -63,7 +62,6 @@ const getAllAppointment = async (req: Request, res: Response) => {
         id: parseInt(appointment_id as string)
       }
     });
-
     if (!appointment) {
       return res.status(404).json({
         success: false,
@@ -82,4 +80,5 @@ const getAllAppointment = async (req: Request, res: Response) => {
     });
   }
 };
+
 export { login, getAllAppointment }

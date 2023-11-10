@@ -1,8 +1,6 @@
 import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinTable, JoinColumn } from "typeorm"
 import { Tattooartist} from "./Tattooartist";
-
 @Entity("desingallery")
-
 export class Desingallery extends BaseEntity{
 
     @PrimaryGeneratedColumn()

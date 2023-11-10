@@ -1,11 +1,10 @@
 import { Response, Request } from "express";
 import jwt from "jsonwebtoken";
 import { Customers } from "../models/Customers";
-import bcrypt from "bcrypt";
 import { Tattooartist } from "../models/Tattooartist";
-//import { appointment_create, appointments_get, appointment_update, appointment_delete } from './appointmentsController';
-import { AppDataSource } from "../database";
 import { Appointment } from "../models/Appointment";
+import bcrypt from "bcrypt";
+import { AppDataSource } from "../database";
 
 const register = async (req: Request, res: Response) => {
   const { username, email, password, phone_number, role } = req.body
@@ -21,7 +20,6 @@ const register = async (req: Request, res: Response) => {
     new_customer.phone_number = phone_number
     new_customer.role = role
     await AppDataSource.manager.save(new_customer)
-
     return res.json({
       success: true,
       message: 'user created succesfully',
@@ -36,29 +34,24 @@ const register = async (req: Request, res: Response) => {
   }
 }
 const login = async (req: Request, res: Response) => {
-
   const { email, password } = req.body
-
   const customer = await Customers.findOneBy(
     {
       email
     }
   );
-
   if (!customer) {
     return res.status(400).json({
       success: true,
       message: 'User or password incorrect',
     })
   }
-
   if (!bcrypt.compareSync(password, customer.password)) {
     return res.status(400).json({
       success: true,
       message: 'User or password incorrect',
     })
   }
-  //generate token
   const token = jwt.sign({
     customers_id: customer.customers_id,
     role: customer.role,
@@ -68,24 +61,21 @@ const login = async (req: Request, res: Response) => {
     {
       expiresIn: '3h',
     });
-
   return res.json({
     success: true,
     message: "user logged succesfully",
     token: token
   });
 }
+
 const profile = async (req: Request, res: Response) => {
-
   const { email } = req.token
-
   try {
     const customer = await Customers.findOneBy(
       {
         email
       },
-      );
-
+    );
     return res.json(
       {
         success: true,
@@ -101,25 +91,20 @@ const profile = async (req: Request, res: Response) => {
     );
   }
 }
+
 const update = async (req: Request, res: Response) => {
-
   const { email } = req.token
-
   try {
-
-    const user = await Customers.findOneBy({email})
-
-    if(user){
+    const user = await Customers.findOneBy({ email })
+    if (user) {
       Object.assign(user, req.body)
       const updateProfile = await Customers.save(user);
-
       return res.json({
         success: true,
         message: 'customer profile update successfully',
         data: updateProfile,
       });
     }
-    
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -127,6 +112,7 @@ const update = async (req: Request, res: Response) => {
     });
   }
 }
+
 const viewappointments = async (req: Request, res: Response) => {
   try {
     const myappointmentes = await Appointment.find({
@@ -150,6 +136,7 @@ const viewappointments = async (req: Request, res: Response) => {
     )
   }
 }
+
 const getTattooartist = async (req: Request, res: Response) => {
   try {
     const viewTattoartist = await Tattooartist.find({
@@ -163,7 +150,6 @@ const getTattooartist = async (req: Request, res: Response) => {
         message: "profile user retrieved",
         data: viewTattoartist
       });
-
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -171,4 +157,4 @@ const getTattooartist = async (req: Request, res: Response) => {
     });
   }
 }
-export { register, login, profile, update, viewappointments }
+export { register, login, profile, update, viewappointments, getTattooartist }

@@ -6,7 +6,6 @@ import { router as tattooartistRouter } from './routes/tattooartistRouter';
 import { AppDataSource } from './database';
 import bodyParser from 'body-parser';
 
-
 const app = express();
 const PORT = process.env.PORT || 4000
 

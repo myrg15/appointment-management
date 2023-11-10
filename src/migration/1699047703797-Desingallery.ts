@@ -1,7 +1,5 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
-
 export class Desingallery1699047703797 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -55,7 +53,6 @@ export class Desingallery1699047703797 implements MigrationInterface {
             true
         );
         await queryRunner.query(`ALTER TABLE desingallery ADD CONSTRAINT fk_desin_tattoo FOREIGN KEY (tattooartist_id) REFERENCES tattooartist(id) ON DELETE CASCADE;`);
-    
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

@@ -78,8 +78,65 @@ and finally the **desingallery** entity with properties id, name, date, imag, de
   >>}
 >>}
 
-### appoinment/appointments_get
->> GET  http://localhost:4000/artist/appointments_get
+### customer/login
+>>POST http://localhost:4000/customer/login
+>>{
+>>    "success": true,
+>>    "message": "user logged succesfully",
+>>    "token":
+>>"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.>>eyJjdXN0b21lcnNfaWQiOjEwLCJyb2xlIjoiYWRtaW4>>iLCJlbWFpbCI6Imx1aXMwMjVAZ21haWwuY29tIiwiaW>>F0IjoxNjk5NjQwMjA3LCJleHAiOjE2OTk2NTEwMDd9.>>aqWLWsBZog757RC1u_0yWZJt5ZhK0mG2n61zskmNjq0>>"
+>>}
+
+### customer/profile
+>>GET http://localhost:4000
+>>{
+>>    "success": true,
+>>    "message": "profile customer retrieved",
+>>    "date": {
+>>        "customers_id": 10,
+>>        "username": "luis",
+>>        "email": "luis025@gmail.com",
+>>        "password": "$2b$10$kI84mg3GDmoQ7IyCqTmCr.swK58OOcsFb3Erkvhbmb4hWSl1cMbAm",
+>>        "phone_number": "8299236045",
+>>        "is_active": true,
+>>        "role": "admin",
+>>        "created_at": "2023-11-09T14:21:01.000Z",
+>>        "updated_at": "2023-11-09T14:21:01.000Z"
+>>    }
+>>}
+
+### appointment/appointment_create
+>>POST http://localhost:4000/appointment/appointment_create
+>>{
+>>"appointment": {
+>>"tattooartist_id": 10,
+>>"customers_id": "2",
+>>"time": "12:00",
+>>"sessions": "piercing",
+>>"date": "2023-10-11",
+>>"availability": "1",
+>>"id": 5
+>>}
+>>}
+
+### /appointment/appointment_update
+>>PUT http://localhost:4000/appointment/appointment_update/5
+>>{
+>>"updateAppointment": {
+>>"id": 5,
+>>"date": "2023-10-10T22:00:00.000Z",
+>>"sessions": "piercing",
+>>"availability": false,
+>>"time": "09:00",
+>>"created_at": "2023-11-10T17:18:27.000Z",
+>>"updated_at": "2023-11-10T17:45:43.000Z",
+>>"customers_id": 2,
+>>"tattooartist_id": 10
+>>}
+>>}
+
+### appoinment/appointments_get_all
+>> GET  http://localhost:4000/appointment/appointments_get_tattoo
 >>{
 >>"id": 3,
 >>"date": "2023-11-04T23:00:00.000Z",
@@ -90,6 +147,35 @@ and finally the **desingallery** entity with properties id, name, date, imag, de
 >>"updated_at": "2023-11-08T17:45:33.000Z",
 >>"customers_id": 4,
 >>"tattooartist_id": 1
+>>}
+
+>>{
+>>"id": 4,
+>>"date": "2023-10-10T22:00:00.000Z",
+>>"sessions": "piercing",
+>>"availability": false,
+>>"time": "12:00",
+>>"created_at": "2023-11-10T17:17:11.000Z",
+>>"updated_at": "2023-11-10T17:17:11.000Z",
+>>"customers_id": 4,
+>>"tattooartist_id": 10
+>>},
+>>{
+>>"id": 5,
+>>"date": "2023-10-10T22:00:00.000Z",
+>>"sessions": "piercing",
+>>"availability": false,
+>>"time": "12:00",
+>>"created_at": "2023-11-10T17:18:27.000Z",
+>>"updated_at": "2023-11-10T17:18:27.000Z",
+>>"customers_id": 2,
+>>"tattooartist_id": 10
+>>}
+
+### appoinment/appointments_delete/5
+>>DELETE http://localhost:4000/appointment/>>appointment_delete/5
+>>{
+  >>  "message": "Appointment delete success"
 >>}
 
 ### Grateful
